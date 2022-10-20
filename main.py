@@ -1,4 +1,4 @@
-import discord, asyncio, datetime, pygq
+import discord, pygq
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all()) 
@@ -21,8 +21,5 @@ async def sync(ctx):
 async def ayah(ctx, ayah_identifier):
     surah, verse = ayah_identifier.split(":") 
     await ctx.send(Q.getAyah(int(surah), int(verse), "en.sahih")["verse"])
-    if pygq.invalid_ayah == True:
-        ctx.send("Invalid Ayah!")
 
-
-bot.run("MTAzMTY3MjA3MzI5MjA5NTUyOQ.G4VClZ.FSCO1TbvhtO1BuEEnXo9wlSkOZUy2wjhsba938")
+bot.run("Bot Token")
