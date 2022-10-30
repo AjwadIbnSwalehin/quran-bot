@@ -33,4 +33,4 @@ async def ayah(ctx, ayah_identifier):
     else:
         await ctx.send(f"Invalid Ayah number for this Surah.")
 
-bot.run("MTAzMTY3MjA3MzI5MjA5NTUyOQ.G3MB-m.diEX1sK76lLBdNsFK2BAg6CCe8Rm59HwO-q9lU")
+bot.run("Bot Token")
