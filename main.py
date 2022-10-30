@@ -1,9 +1,11 @@
-import discord, pygq
+import discord, os, requests 
 from discord.ext import commands
+from dotenv import load_dotenv
 
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all()) 
 
-Q = pygq.PyGQ()
+def configure():
+    load_dotenv()
 
 @bot.event
 async def on_ready():
@@ -19,7 +21,16 @@ async def sync(ctx):
 
 @bot.command()
 async def ayah(ctx, ayah_identifier):
-    surah, verse = ayah_identifier.split(":") 
-    await ctx.send(Q.getAyah(int(surah), int(verse), "en.sahih")["verse"])
+    configure()
+    surah, ayah = ayah_identifier.split(":")
+    url = f"http://api.globalquran.com/ayah/{surah}:{ayah}/en.sahih?key={os.getenv('api_key')}"
+    r = requests.get(url)
+    quran_dict = r.json()
+    while len(quran_dict) == 1:
+            quran_dict = quran_dict[next(iter(quran_dict))]
+    if int(quran_dict["surah"]) == int(surah):
+        await ctx.send(f"{quran_dict['verse']}")
+    else:
+        await ctx.send(f"Invalid Ayah number for this Surah.")
 
-bot.run("Bot Token")
+bot.run("MTAzMTY3MjA3MzI5MjA5NTUyOQ.G3MB-m.diEX1sK76lLBdNsFK2BAg6CCe8Rm59HwO-q9lU")
