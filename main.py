@@ -10,14 +10,12 @@ def configure():
 @bot.event
 async def on_ready():
     await bot.change_presence(activity = discord.Game("Aiming to Please Allah!"))
+    await bot.tree.sync(guild=None) # Change the "None" to a specific guild ID as global syncing takes long
     print(f"We have logged in as Qur'an Bot!")
 
-@bot.command()
-async def sync(ctx):
-    await ctx.send(f"Syncing...")
-    await bot.tree.sync()
-    await bot.tree.sync(guild = discord.Object(id=000000000000000000000000))
-    await ctx.send(f"Syncing Complete!")
+# TO DO: 
+# 1) Make Invalid Surah fix
+# 2) Use decomposition on code, split up incorrect Ayah and incorrect Surah into different functions
 
 @bot.command()
 async def ayah(ctx, ayah_identifier):
