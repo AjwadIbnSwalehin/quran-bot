@@ -14,8 +14,8 @@ async def on_ready():
     print(f"We have logged in as Qur'an Bot!")
 
 # TO DO: 
-# 1) Use decomposition on code, split up incorrect Ayah and incorrect Surah into different functions
-# 2) Make bot look more "fancy"
+# 1) Make bot look more "fancy"
+# 2) Create Arabic Ayah command
 
 @bot.command()
 async def ayah(ctx, ayah_identifier):
@@ -31,6 +31,23 @@ async def ayah(ctx, ayah_identifier):
     else:
         if int(quran_dict["surah"]) == int(surah):
             await ctx.send(f"{quran_dict['verse']}")
+        else:
+            await ctx.send(f"Invalid Ayah number for this Surah.")
+
+@bot.command()
+async def arabic(ctx, arabicayah):
+    configure()
+    asurah, aayah = arabicayah.split(":")
+    url = f"http://api.globalquran.com/ayah/{asurah}:{aayah}/quran-simple?key={os.getenv('api_key')}"
+    r = requests.get(url)
+    arabic_quran_dict = r.json()
+    while len(arabic_quran_dict) == 1:
+            arabic_quran_dict = arabic_quran_dict[next(iter(arabic_quran_dict))]
+    if int(asurah) < 1 or int(asurah) > 114:
+        await ctx.send("Invalid Surah Number")
+    else:
+        if int(arabic_quran_dict["surah"]) == int(asurah):
+            await ctx.send(f"{arabic_quran_dict['verse']}")
         else:
             await ctx.send(f"Invalid Ayah number for this Surah.")
 
