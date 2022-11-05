@@ -1,5 +1,5 @@
-quranInfo = {'surah': [
-    # [start, ayas, order, rukus, name, tname, ename, type]
+quranInfoList = {'surah': [
+    # [Arabic, Arabic_English, English]
     [],
     ['الفاتحة', "Al-Faatiha", 'The Opening'],
     ['البقرة', "Al-Baqara", 'The Cow'],
