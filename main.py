@@ -32,11 +32,15 @@ async def ayah(ctx, ayah_identifier):
         await ctx.send("Invalid Surah Number")
 
     ayahembed = discord.Embed(
-        colour = discord.Colour.blue()
+        colour = discord.Colour.green()
     )
 
-    ayahembed.set_author(name = f"{quranInfo.quranInfoList['surah'][int(surah)][1]}, {quranInfo.quranInfoList['surah'][int(surah)][2]}", icon_url = "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG9seSUyMHF1cmFufGVufDB8fDB8fA%3D%3D&w=1000&q=80")
-    ayahembed.add_field(name = f"{ayah_identifier}", value = f"{quran_dict['verse']}")
+    ayahembed.set_author(name = f"{quranInfo.quranInfoList['surah'][int(surah)][1]}, {quranInfo.quranInfoList['surah'][int(surah)][2]}", icon_url = "https://cdn.discordapp.com/attachments/658948161619886092/1038902112802848778/quranbotpfp.png")
+    if len(quran_dict['verse']) > 1024:
+        ayahembed.add_field(name = f"{ayah_identifier}", value = f"{quran_dict['verse'][0:1018]}")
+        ayahembed.add_field(name = "|", value = f"{quran_dict['verse'][1018:len(quran_dict['verse'])]}")
+    else:
+        ayahembed.add_field(name = f"{ayah_identifier}", value = f"{quran_dict['verse']}")
 
     if int(quran_dict["surah"]) == int(surah):
         await ctx.send(embed=ayahembed)
@@ -59,11 +63,15 @@ async def arabic(ctx, arabicayah):
         await ctx.send("Invalid Surah Number")
 
     arabicembed = discord.Embed(
-        colour = discord.Colour.blue()
+        colour = discord.Colour.green()
     )
 
-    arabicembed.set_author(name = f"{quranInfo.quranInfoList['surah'][int(asurah)][0]}", icon_url = "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG9seSUyMHF1cmFufGVufDB8fDB8fA%3D%3D&w=1000&q=80")
-    arabicembed.add_field(name = f"{arabicayah}", value = f"{arabic_quran_dict['verse']}")
+    arabicembed.set_author(name = f"{quranInfo.quranInfoList['surah'][int(asurah)][0]}", icon_url = "https://cdn.discordapp.com/attachments/658948161619886092/1038902112802848778/quranbotpfp.png")
+    if len(arabic_quran_dict['verse']) > 1024:
+        arabicembed.add_field(name = f"{arabicayah}", value = f"{arabic_quran_dict['verse'][0:1018]}")
+        arabicembed.add_field(name = "|", value = f"{arabic_quran_dict['verse'][1018:len(arabic_quran_dict['verse'])]}")
+    else:
+        arabicembed.add_field(name = f"{arabicayah}", value = f"{arabic_quran_dict['verse']}")
 
     if int(arabic_quran_dict["surah"]) == int(asurah):
         await ctx.send(embed=arabicembed)
